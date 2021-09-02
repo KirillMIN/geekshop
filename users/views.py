@@ -5,6 +5,7 @@ from django.urls import reverse
 from users.forms import Userloginform, UserRegistrationForm, UserProfileForm
 from django.contrib import messages
 from baskets.models import Basket
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
@@ -42,6 +43,7 @@ def logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(instance=request.user, files=request.FILES, data=request.POST)

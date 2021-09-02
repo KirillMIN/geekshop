@@ -22,5 +22,12 @@
       <jdbc-url>jdbc:sqlite:C:\projectD\geekshop-server\geekshop\db.sqlite33</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="db [4]" uuid="27a088de-27e3-44b4-8a19-e7a5a0d4dedb">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Анастасия\PycharmProjects\geekshop\db.sqlite3</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
