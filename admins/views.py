@@ -96,3 +96,4 @@ class UserDeleteView(DeleteView):
         self.object.is_active = False
         return HttpResponseRedirect(self.get_success_url())
 
+
