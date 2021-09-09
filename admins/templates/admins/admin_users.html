@@ -33,7 +33,7 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            {% for user in object_list %}
+                            {% for user in users %}
                                 <tr>
                                     <td><a href="{% url 'admins:admins_users' %}"
                                            style="color: dodgerblue">{{ user.username }}</a>
