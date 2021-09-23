@@ -1,8 +1,9 @@
 from django.conf import settings
+from django.db import transaction
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth
 from django.urls import reverse
-from users.forms import Userloginform, UserRegistrationForm, UserProfileForm
+from users.forms import Userloginform, UserRegistrationForm, UserProfileForm, UserProfileChangeForm
 from django.contrib import messages
 from baskets.models import Basket
 from django.contrib.auth.decorators import login_required
@@ -59,30 +60,39 @@ def logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-@login_required
+@transaction.atomic
 def profile(request):
     if request.method == 'POST':
-        form = UserProfileForm(instance=request.user, files=request.FILES, data=request.POST)
-        if form.is_valid():
+        form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
+        profile_form = UserProfileChangeForm(data=request.POST, instance=request.user.userprofileinf)
+
+        if form.is_valid() and profile_form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=request.user)
-    context = {'title': 'GeekShop - Личный кабинет', 'form': form, 'baskets': Basket.objects.filter(user=request.user)}
+        profile_form = UserProfileChangeForm(instance=request.user.userprofileinf)
+
+    context = {
+        'form': form,
+        'profile_form': profile_form,
+        'title': 'GeekShop - Профиль',
+        'baskets': Basket.objects.filter(user=request.user), }
+
     return render(request, 'users/profile.html', context)
 
 
-def verify(self, email, activation_key):
+def verify(request, email, activation_key):
     try:
         user = User.objects.get(email=email)
         if user.activation_key == activation_key and not user.is_activation_key_expires():
             user.is_active = True
             user.save()
-            auth.login(self, user)
-            return render(self, 'users/verification.html')
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return render(request, 'users/verification.html')
         else:
             print(f'error activation user: {user}')
-            return render(self, 'users/verification.html')
+            return render(request, 'users/verification.html')
     except Exception as e:
         print(f'error activation user : {e.args}')
         return HttpResponseRedirect(reverse('index'))
