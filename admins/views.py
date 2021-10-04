@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
+
+from products.models import Product
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
 from django.contrib.auth.decorators import user_passes_test
@@ -97,3 +99,8 @@ class UserDeleteView(DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
 
+class ProductsListView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'admins/product_list.html'
+    success_url = reverse_lazy('admins:admin_users')

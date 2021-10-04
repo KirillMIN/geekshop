@@ -1,8 +1,16 @@
 from django.conf import settings
 from django.db import models
 
-# Create your models here.
 from products.models import Product
+
+
+class OrderItemQuerySet(models.QuerySet):
+
+    def delete(self, *args, **kwargs):
+        for object in self:
+            object.product.quantity += object.quantity
+            object.product.save()
+        super(OrderItemQuerySet, self).delete(*args, **kwargs)
 
 
 class Order(models.Model):
@@ -21,6 +29,7 @@ class Order(models.Model):
         (READY, 'готов к выдаче'),
         (CANCEL, 'отменен'),
     )
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -57,6 +66,7 @@ class Order(models.Model):
         items = self.orderitems.select_related()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
 
+    # переопределяем метод, удаляющий объект
     def delete(self):
         for item in self.orderitems.select_related():
             item.product.quantity += item.quantity
@@ -67,6 +77,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    objects = OrderItemQuerySet.as_manager()
+
     order = models.ForeignKey(
         Order,
         related_name="orderitems",
