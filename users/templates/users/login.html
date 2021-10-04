@@ -47,6 +47,12 @@
                             </div>
                             <div class="card-footer text-center">
                                 <div class="small"><a href="{% url 'users:registration' %}">Нужен аккаунт? Зарегистрируйся!</a></div>
+
+                                <button class="btn btn-round form-control">
+                                                <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">
+                                                    Войти через VK
+                                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
