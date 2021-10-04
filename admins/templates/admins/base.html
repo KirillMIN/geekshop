@@ -13,6 +13,7 @@
           crossorigin="anonymous"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
+
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -58,11 +59,17 @@
                         </div>
                         Категории
                     </a>
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{% url 'admins:admin_products' %}">
                         <div class="sb-nav-link-icon">
                             <i class="fas fa-tshirt"></i>
                         </div>
                         Продукты
+                    </a>
+                       <a class="nav-link" href="{% url 'orders:orders_list' %}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        Заказы
                     </a>
                 </div>
             </div>
@@ -89,5 +96,8 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="{% static 'js/datatable.js' %}"></script>
+
+{% block js %}
+{% endblock %}
 </body>
 </html>

@@ -15,6 +15,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/ve1" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (geekshop)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -31,6 +32,7 @@
         <option value="$MODULE_DIR$/users/templates" />
         <option value="$MODULE_DIR$/baskets/templates" />
         <option value="$MODULE_DIR$/admins/templates" />
+        <option value="$MODULE_DIR$/orders/templates" />
       </list>
     </option>
   </component>
