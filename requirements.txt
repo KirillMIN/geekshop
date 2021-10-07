@@ -1,0 +1,10 @@
+Django==3.2.7
+asgiref
+pytz
+sqlparse
+Pillow
+django-environ
+social_auth_app_django
+requests
+gunicorn
+psycopg2-binary
