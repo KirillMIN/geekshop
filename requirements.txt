@@ -12,3 +12,5 @@ social_auth_app_django
 requests
 gunicorn
 psycopg2-binary
+
+django-debug-toolbar~=3.2.2
